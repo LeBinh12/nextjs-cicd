@@ -1,16 +1,24 @@
-import { Metadata } from "next";
 
-export async function generateMetadata(
-): Promise<Metadata> {
-  return { title: `Post:` };
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+export async function generateStaticParams() {
+  // Trả về các slug muốn build sẵn
+  return [
+    { slug: "hello-world" },
+    { slug: "dthu-2026" },
+    { slug: "test" },
+  ];
 }
 
-export default function Page() {
-  return (
-    <>
-      <h1>Slug: heading</h1>
-      <p>Hello DTHU 2026</p>
-      <p>HoleText</p>
-    </>
-  );
+
+export async function generateMetadata({ params }: Params) {
+  return { title: `Post: ${params.slug}` };
+}
+
+export default function Page({ params }: Params) {
+  return <h1>Slug: {params.slug}</h1>;
 }
