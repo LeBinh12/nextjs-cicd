@@ -1,12 +1,14 @@
+import type { Metadata } from "next";
 
-type Params = {
+// ✅ Tự định nghĩa type cho props
+type PageProps = {
   params: {
     slug: string;
   };
 };
 
+// Generate static params cho static export
 export async function generateStaticParams() {
-  // Trả về các slug muốn build sẵn
   return [
     { slug: "hello-world" },
     { slug: "dthu-2026" },
@@ -14,11 +16,13 @@ export async function generateStaticParams() {
   ];
 }
 
-
-export async function generateMetadata({ params }: Params) {
+// ✅ Không dùng PageProps từ "next"
+export async function generateMetadata(
+  { params }: PageProps
+): Promise<Metadata> {
   return { title: `Post: ${params.slug}` };
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page({ params }: PageProps) {
   return <h1>Slug: {params.slug}</h1>;
 }
