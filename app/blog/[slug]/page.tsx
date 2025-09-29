@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-// ✅ Tự định nghĩa type cho props
-type PageProps = {
+// 🔄 Đặt tên khác để không trùng với Next.js
+type BlogPageProps = {
   params: {
     slug: string;
   };
@@ -16,13 +16,13 @@ export async function generateStaticParams() {
   ];
 }
 
-// ✅ Không dùng PageProps từ "next"
+// ✅ Dùng BlogPageProps thay vì PageProps
 export async function generateMetadata(
-  { params }: PageProps
+  { params }: BlogPageProps
 ): Promise<Metadata> {
   return { title: `Post: ${params.slug}` };
 }
 
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: BlogPageProps) {
   return <h1>Slug: {params.slug}</h1>;
 }
